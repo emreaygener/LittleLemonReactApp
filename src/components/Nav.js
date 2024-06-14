@@ -1,7 +1,7 @@
 export default function Nav() {
   return (
     <nav>
-      <ul>
+      <menu>
         <li>
           <a href="/">Home</a>
         </li>
@@ -20,7 +20,7 @@ export default function Nav() {
         <li>
           <a href="/login">Login</a>
         </li>
-      </ul>
+      </menu>
     </nav>
   );
 }
