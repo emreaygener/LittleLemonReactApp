@@ -1,24 +1,36 @@
 export default function Nav() {
   return (
-    <nav>
-      <menu>
+    <nav id="Navigation">
+      <menu className="nav-container">
         <li>
-          <a href="/">Home</a>
+          <a className="header" href="/">
+            Home
+          </a>
         </li>
         <li>
-          <a href="/about">About</a>
+          <a className="header" href="/about">
+            About
+          </a>
         </li>
         <li>
-          <a href="/menu">Menu</a>
+          <a className="header" href="/menu">
+            Menu
+          </a>
         </li>
         <li>
-          <a href="/reservations">Reservations</a>
+          <a className="header" href="/reservations">
+            Reservations
+          </a>
         </li>
         <li>
-          <a href="/order">Order Online</a>
+          <a className="header" href="/order">
+            Order Online
+          </a>
         </li>
         <li>
-          <a href="/login">Login</a>
+          <a className="header" href="/login">
+            Login
+          </a>
         </li>
       </menu>
     </nav>

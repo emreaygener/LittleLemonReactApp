@@ -1,38 +1,182 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: "Markazi Text Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/markazi-text:vf@latest/latin-wght-normal.woff2)
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Karla Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/karla:vf@latest/latin-wght-normal.woff2)
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+}
+#root {
+  background-color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#Header {
+  background-color: #ffffff;
+  color: #fff;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 0 70px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header-container {
+  grid-column: 3 / span 8;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 150px;
 }
 
-.App-link {
-  color: #61dafb;
+#Navigation {
+  /* background-color: #edefee; */
+  justify-items: space-between;
+  flex: auto;
+}
+#Navigation li {
+  padding: 0 1vw;
+}
+.invisible-squares-1vw {
+  width: 1px;
+  height: 1px;
+  padding: 1vw;
+  background-color: transparent;
+}
+#Footer {
+  background-color: #edefee;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+#Header img {
+  height: 56px;
+}
+#Footer img {
+  width: 160px;
+  padding: 10px;
+}
+
+#Footer {
+  min-height: 450px;
+  align-content: center;
+}
+.footer-container {
+  grid-column: 3 / span 8;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  height: fit-content;
+  & menu {
+    padding-top: 30px;
+    padding: 30px 10px;
+    list-style: none;
   }
-  to {
-    transform: rotate(360deg);
+}
+.nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  list-style: none;
+}
+
+h1 {
+  font-family: "Markazi Text Variable", sans-serif;
+  font-size: 64px;
+  font-weight: 500;
+}
+h2 {
+  font-family: "Markazi Text Variable", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+}
+h3 {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+}
+h4 {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+p {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+p.lead {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+p.specials {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+p.highlight {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+a.header {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #000;
+  text-decoration: none;
+}
+a.header:hover {
+  color: #495e57;
+}
+
+nav {
+  text-decoration: none;
+  list-style: none;
+}
+
+@media screen and (max-width: 1385px) {
+  .header-container,
+  .nav-container {
+    justify-content: center;
   }
+}
+@media screen and (min-width: 1385px) {
+  .invisible-squares-1vw {
+    display: none;
+  }
+}
+
+menu.footer a {
+  font-family: "Karla Variable", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #000;
+  text-decoration: none;
+}
+menu.footer a:hover {
+  color: #495e57;
+}
+menu.footer h3 {
+  color: #495e57;
 }
