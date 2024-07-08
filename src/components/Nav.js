@@ -1,36 +1,38 @@
+import { Link } from "react-router-dom";
+
 export default function Nav() {
   return (
     <nav id="Navigation">
       <menu className="nav-container">
         <li>
-          <a className="header" href="/">
+          <Link className="header" to="/">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="header" href="/about">
+          <Link className="header" to="/about">
             About
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="header" href="/menu">
+          <Link className="header" to="/menu">
             Menu
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="header" href="/reservations">
+          <Link className="header" to="/reservations">
             Reservations
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="header" href="/order">
+          <Link className="header" to="/order">
             Order Online
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="header" href="/login">
+          <Link className="header" to="/login">
             Login
-          </a>
+          </Link>
         </li>
       </menu>
     </nav>

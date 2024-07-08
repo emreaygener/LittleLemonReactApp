@@ -4,11 +4,11 @@ export default function Footer() {
   return (
     <footer id="Footer">
       <menu className="footer-container">
-        <img src={footerLogo} alt="footer logo" />
+        <img id="img-footer" src={footerLogo} alt="footer logo" />
 
         <menu className="footer">
-          <h3>Doormat</h3>
-          <h3>Navigation</h3>
+          <h3>DOORMAT</h3>
+          <h3>NAVIGATION</h3>
           <li>
             <a href="/">Home</a>
           </li>
@@ -29,7 +29,8 @@ export default function Footer() {
           </li>
         </menu>
         <menu className="footer">
-          <h3>Contacts</h3>
+          <h3>CONTACTS</h3>
+          <br className="br" />
           <li>
             <a href="https://www.facebook.com">Adress</a>
           </li>
@@ -41,7 +42,8 @@ export default function Footer() {
           </li>
         </menu>
         <menu className="footer">
-          <h3>Social Media Links</h3>
+          <h3>SOCIAL MEDIA LINKS</h3>
+          <br className="br" />
           <li>
             <a href="https://www.facebook.com">Facebook</a>
           </li>
@@ -56,7 +58,7 @@ export default function Footer() {
           </li>
           <br />
         </menu>
-        <h3 style={{ alignSelf: "end", fontSize: "12px" }}>&copy; 2024</h3>
+        {/* <h3 style={{ alignSelf: "end", fontSize: "12px" }}>&copy; 2024</h3> */}
       </menu>
     </footer>
   );

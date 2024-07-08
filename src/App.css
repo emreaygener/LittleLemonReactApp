@@ -21,6 +21,21 @@
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@media (max-width: 700px) {
+  .grid-adjustable-columns {
+    display: grid;
+    grid-auto-flow: row;
+  }
+}
+
+@media (min-width: 701px) {
+  .grid-adjustable-columns {
+    margin: 0 auto;
+    grid-auto-flow: column;
+    gap: 1em;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -75,6 +90,7 @@
 
 #Footer {
   min-height: 450px;
+  padding: 0 70px;
   align-content: center;
 }
 .footer-container {
@@ -136,7 +152,7 @@ p.specials {
 p.highlight {
   font-family: "Karla Variable", sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
 }
 a.header {
   font-family: "Karla Variable", sans-serif;
@@ -158,6 +174,7 @@ nav {
   .header-container,
   .nav-container {
     justify-content: center;
+    margin: 8px 0;
   }
 }
 @media screen and (min-width: 1385px) {
@@ -171,12 +188,57 @@ menu.footer a {
   font-size: 18px;
   font-weight: 700;
   line-height: 1.5;
-  color: #000;
+  color: #495e57;
   text-decoration: none;
 }
 menu.footer a:hover {
-  color: #495e57;
+  color: #000000;
 }
 menu.footer h3 {
   color: #495e57;
+}
+
+@media screen and (max-width: 575px) {
+  .footer-container {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    grid-column: 1 / span 12;
+  }
+  .footer-container menu {
+    padding: 0;
+  }
+  #Footer {
+    padding: 0;
+  }
+  menu.footer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 2px;
+  }
+  .br {
+    display: none;
+  }
+  #img-footer {
+    padding: 30px 0;
+    width: 100%;
+  }
+  #Footer img {
+    padding: 30px;
+  }
+}
+@media screen and (max-width: 1433px) {
+  .footer-container {
+    grid-column: 1 / span 12;
+    justify-content: center;
+    gap: 50px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .footer-container {
+    margin-top: 20px;
+    gap: 20px;
+  }
 }
