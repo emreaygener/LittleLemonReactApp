@@ -7,6 +7,7 @@ import foodImg_lemonDessert from "../../assets/img/lemon dessert.jpg";
 const Specials = () => {
   const CardsInfo = [
     {
+      id: 1,
       img: foodImg_greekSalad,
       title: "Greek Salad",
       description:
@@ -14,6 +15,7 @@ const Specials = () => {
       price: "$" + 12.99,
     },
     {
+      id: 2,
       img: foodImg_brucheta,
       title: "Brucheta",
       description:
@@ -21,6 +23,7 @@ const Specials = () => {
       price: "$" + 5.99,
     },
     {
+      id: 3,
       img: foodImg_lemonDessert,
       title: "Lemon Dessert",
       description:
@@ -38,9 +41,9 @@ const Specials = () => {
           </button>
         </div>
         <div className="cards-container">
-          <Card cardinfo={CardsInfo[0]} />
-          <Card cardinfo={CardsInfo[1]} />
-          <Card cardinfo={CardsInfo[2]} />
+          {CardsInfo.map((card) => {
+            return <Card cardinfo={card} key={card.id} />;
+          })}
         </div>
       </div>
     </section>
