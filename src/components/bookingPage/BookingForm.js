@@ -2,7 +2,7 @@ import "./BookingForm.css";
 import TableSelection from "./TableSelection";
 import { useEffect, useState } from "react";
 
-const BookingForm = () => {
+const BookingForm = (props) => {
   const tables = [
     [
       { id: 7, name: "Porch 1", reserved: false },
@@ -28,14 +28,7 @@ const BookingForm = () => {
     name: "",
     reserved: false,
   });
-  const [availableTimes, setAvailableTimes] = useState([
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-  ]);
+  const availableTimes = props.availableTimes;
   const [disable1, setDisable1] = useState("");
   const [disable2, setDisable2] = useState(" disable");
   const [form, setForm] = useState({

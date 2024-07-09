@@ -1,9 +1,9 @@
 import BookingForm from "./BookingForm";
 
-const BookingPage = () => {
+const BookingPage = (props) => {
   return (
     <>
-      <BookingForm />
+      <BookingForm availableTimes={props.availableTimes} />
     </>
   );
 };
