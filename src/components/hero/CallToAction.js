@@ -20,10 +20,8 @@ export default function CallToAction() {
           We are a family owned Mediterranean restaurant, focused on traditional
           recipes served with a modern twist.
         </p>
-        <Link to="/booking" id="reserve-button" className="reserve-button">
-          <button className="reserve-button">
-            <h4>Reserve a table</h4>
-          </button>
+        <Link to="/booking" className="reserve-button">
+          <h4>Reserve a table</h4>
         </Link>
       </div>
       <img

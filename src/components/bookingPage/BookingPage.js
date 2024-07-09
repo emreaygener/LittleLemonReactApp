@@ -1,8 +1,10 @@
+import BookingForm from "./BookingForm";
+
 const BookingPage = () => {
   return (
-    <div>
-      <h1>Booking Page</h1>
-    </div>
+    <>
+      <BookingForm />
+    </>
   );
 };
 
