@@ -3,6 +3,8 @@ import TableSelection from "./TableSelection";
 import { useEffect, useState } from "react";
 
 const BookingForm = (props) => {
+  const availableTimes = props.availableTimes;
+  const updateTimes = props.updateTimes;
   const tables = [
     [
       { id: 7, name: "Porch 1", reserved: false },
@@ -13,9 +15,9 @@ const BookingForm = (props) => {
       { id: 1, name: "Main 1", reserved: true },
       { id: 2, name: "Main 2", reserved: false },
       { id: 3, name: "Main 3", reserved: true },
-      { id: 4, name: "Main 4", reserved: false },
-      { id: 5, name: "Main 5", reserved: true },
-      { id: 6, name: "Main 6", reserved: false },
+      { id: 4, name: "Main 4", reserved: true },
+      { id: 5, name: "Main 5", reserved: false },
+      { id: 6, name: "Main 6", reserved: true },
     ],
     [
       { id: 10, name: "Garden 1", reserved: true },
@@ -28,7 +30,6 @@ const BookingForm = (props) => {
     name: "",
     reserved: false,
   });
-  const availableTimes = props.availableTimes;
   const [disable1, setDisable1] = useState("");
   const [disable2, setDisable2] = useState(" disable");
   const [form, setForm] = useState({
@@ -55,11 +56,13 @@ const BookingForm = (props) => {
   return (
     <>
       <h1 id="form-title">Reserve a table</h1>
-      <form onSubmit={handleSubmit}>
+      <form role="form" onSubmit={handleSubmit}>
         <section className={"form-page-1" + disable1}>
-          <label>
+          <label htmlFor="reservation-date">
             Reservation date:
             <input
+              name="reservation-date"
+              id="reservation-date"
               type="date"
               min={new Date().toISOString().split("T")[0]}
               value={form.date}
@@ -69,9 +72,11 @@ const BookingForm = (props) => {
             />
           </label>
           <div className="form-row">
-            <label>
+            <label htmlFor="reservation-time">
               Reservation time:
               <select
+                name="reservation-time"
+                id="reservation-time"
                 value={form.time}
                 onChange={(e) => {
                   setForm({ ...form, time: e.target.value });
@@ -85,9 +90,11 @@ const BookingForm = (props) => {
                 ))}
               </select>
             </label>
-            <label>
+            <label htmlFor="number-of-diners">
               Number of diners:
               <input
+                name="number-of-diners"
+                id="number-of-diners"
                 placeholder="Select the number of diners (max 12)"
                 type="number"
                 min="1"
@@ -99,9 +106,11 @@ const BookingForm = (props) => {
               />
             </label>
           </div>
-          <label>
+          <label htmlFor="Occasion">
             Occasion:
             <select
+              name="Occasion"
+              id="Occasion"
               value={form.occasion}
               onChange={(e) => {
                 setForm({ ...form, occasion: e.target.value });
@@ -184,9 +193,11 @@ const BookingForm = (props) => {
         </section>
 
         <section className={"form-page-2" + disable2}>
-          <label>
+          <label htmlFor="name">
             Name:
             <input
+              name="name"
+              id="name"
               type="text"
               value={form.name}
               onChange={(e) => {
@@ -194,19 +205,24 @@ const BookingForm = (props) => {
               }}
             />
           </label>
-          <label>
-            Email:
+          <label htmlFor="email">
+            {"Email (required):"}
             <input
+              name="email"
+              id="email"
               type="email"
               value={form.email}
               onChange={(e) => {
                 setForm({ ...form, email: e.target.value });
               }}
+              required
             />
           </label>
-          <label>
+          <label htmlFor="phone">
             Phone:
             <input
+              name="phone"
+              id="phone"
               type="tel"
               value={form.phone}
               onChange={(e) => {
@@ -214,9 +230,11 @@ const BookingForm = (props) => {
               }}
             />
           </label>
-          <label>
+          <label htmlFor="special-requests">
             Special requests:
             <textarea
+              name="special-requests"
+              id="special-requests"
               placeholder="Please fill this field if you have any special requests"
               value={form.specialRequests}
               onChange={(e) => {
