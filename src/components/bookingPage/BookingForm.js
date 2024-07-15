@@ -1,6 +1,8 @@
 import "./BookingForm.css";
 import TableSelection from "./TableSelection";
 import { useEffect, useState } from "react";
+import ConfirmBooking from "./ConfirmBooking";
+import { useLocation } from "react-router-dom";
 
 const BookingForm = (props) => {
   const availableTimes = props.availableTimes;
@@ -43,20 +45,61 @@ const BookingForm = (props) => {
     phone: "",
     specialRequests: "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   useEffect(() => {
     setForm({ ...form, table: selectedTable });
   }, [selectedTable]);
 
+  const location = useLocation();
+  const { editForm } = location.state || {};
+  useEffect(() => {
+    if (editForm) {
+      setForm(editForm);
+      setSelectedTable(editForm.table);
+    }
+  }, [editForm]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    setIsModalOpen(true);
   };
+  const handleConfirm = () => {
+    const submitted = props.onSubmit(form);
+    setIsConfirmed(submitted);
+    const reservations = props.reservations;
+    if (reservations.find((res) => res.id === form.id)) {
+      const updatedReservations = reservations.map((res) =>
+        res.id === form.id ? form : res
+      );
+      props.setReservations(updatedReservations);
+    } else {
+      props.setReservations([...props.reservations, form]);
+    }
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    updateTimes(new Date(form.date));
+  }, [form.date]);
 
   return (
     <>
+      {isModalOpen && (
+        <ConfirmBooking
+          form={form}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          isConfirmed={isConfirmed}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
+
       <h1 id="form-title">Reserve a table</h1>
-      <form role="form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <section className={"form-page-1" + disable1}>
           <label htmlFor="reservation-date">
             Reservation date:
@@ -117,10 +160,10 @@ const BookingForm = (props) => {
               }}
             >
               <option value="">Select an occasion</option>
-              <option value="birthday">Birthday</option>
-              <option value="anniversary">Anniversary</option>
-              <option value="wedding">Wedding</option>
-              <option value="other">Other</option>
+              <option value="Birthday">Birthday</option>
+              <option value="Anniversary">Anniversary</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Other">Other</option>
             </select>
           </label>
           <div className="map-legend">
