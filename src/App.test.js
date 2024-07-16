@@ -1,36 +1,52 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 import BookingForm from "./components/bookingPage/BookingForm";
-import { updateTimes, initializeTimes } from "./components/Main";
+import {
+  updateTimes,
+  initializeTimes,
+  getReservationsFromLocalStorage,
+  saveReservationsToLocalStorage,
+} from "./components/Main";
 import userEvent from "@testing-library/user-event";
+import * as api from "./Api";
+import { MemoryRouter } from "react-router-dom";
 
-// test("renders learn react link", () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+jest.mock("./Api", () => ({
+  fetchAPI: jest.fn(),
+}));
+
 describe("BookingForm", () => {
   test("Renders the BookingForm heading", () => {
-    render(<BookingForm availableTimes={[]} updateTimes={() => {}} />);
+    render(
+      <MemoryRouter>
+        <BookingForm availableTimes={[]} updateTimes={() => {}} />
+      </MemoryRouter>
+    );
     const headingElement = screen.getByText("Reserve a table");
     expect(headingElement).toBeInTheDocument();
   });
 
   test("User can progress to the next step", () => {
-    render(<BookingForm availableTimes={[]} updateTimes={() => {}} />);
+    render(
+      <MemoryRouter>
+        <BookingForm availableTimes={[]} updateTimes={() => {}} />
+      </MemoryRouter>
+    );
     const nextButton = screen.getByRole("button", { name: /next page/i });
     expect(nextButton).toBeInTheDocument();
     expect(nextButton).toBeDisabled();
   });
 
-  test("User can submit the form when filled as intended", async () => {
+  test("User can submit the form when form is filled as intended", async () => {
     const mockSubmit = jest.fn();
 
     render(
-      <BookingForm
-        availableTimes={["17:00", "18:00", "19:00"]}
-        updateTimes={() => {}}
-      />
+      <MemoryRouter>
+        <BookingForm
+          availableTimes={["17:00", "18:00", "19:00"]}
+          updateTimes={() => {}}
+        />
+      </MemoryRouter>
     );
 
     await userEvent.type(
@@ -63,25 +79,105 @@ describe("BookingForm", () => {
 
 describe("initializeTimes function", () => {
   test("returns the correct array of times", () => {
-    const expectedTimes = [
-      "17:00",
-      "18:00",
-      "19:00",
-      "20:00",
-      "21:00",
-      "22:00",
-      "23:00",
-    ];
-    const times = initializeTimes();
-    expect(times).toEqual(expectedTimes);
+    const mockResult = ["17:00", "18:00", "19:00"];
+    api.fetchAPI.mockReturnValue(mockResult);
+
+    const initialTimes = initializeTimes();
+    expect(initialTimes).toEqual(mockResult);
   });
 });
 
 describe("updateTimes function", () => {
-  test("returns the same state when called", () => {
-    const state = ["17:00", "18:00"];
-    const action = { type: "update", date: "2023-04-01" };
-    const updatedState = updateTimes(state, action);
-    expect(updatedState).toBe(state);
+  test("updates state correctly when action type is 'update'", () => {
+    const mockState = ["17:00", "18:00"];
+    const mockAction = { type: "update", date: new Date("2023-04-01") };
+    const mockResult = ["17:00", "17:30", "18:00", "18:30"];
+    api.fetchAPI.mockReturnValue(mockResult);
+
+    const updatedState = updateTimes(mockState, mockAction);
+    expect(updatedState).toEqual(mockResult);
+  });
+
+  test("returns the same state when action type is not 'update'", () => {
+    const mockState = ["17:00", "18:00"];
+    const mockAction = { type: "not_update", date: new Date("2023-04-01") };
+
+    const updatedState = updateTimes(mockState, mockAction);
+    expect(updatedState).toBe(mockState);
+  });
+});
+
+describe("Local Storage Reservations", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test("getReservationsFromLocalStorage retrieves reservations correctly when they exist", () => {
+    const reservations = [
+      { id: 1, name: "Alice", date: "2023-04-01", time: "18:00" },
+      { id: 2, name: "Bob", date: "2023-04-02", time: "19:00" },
+    ];
+
+    localStorage.setItem("reservations", JSON.stringify(reservations));
+
+    const retrievedReservations = getReservationsFromLocalStorage();
+    expect(retrievedReservations).toEqual(reservations);
+  });
+
+  test("getReservationsFromLocalStorage returns default reservations when none exist", () => {
+    const defaultReservations = [
+      {
+        id: 101,
+        name: "John Doe",
+        date: "2022-01-01",
+        time: "18:00",
+        diners: 2,
+        occasion: "Birthday",
+        table: { id: 1, name: "Main 1", reserved: true },
+        email: "john@doe.com",
+        phone: "04876548732",
+        specialRequests: "No Special Requests",
+      },
+      {
+        id: 102,
+        name: "Jane Doe",
+        date: "2022-01-02",
+        time: "19:00",
+        diners: 4,
+        occasion: "Anniversary",
+        table: { id: 2, name: "Main 2", reserved: false },
+        email: "jane@doe.com",
+        phone: "04876548778",
+        specialRequests: "No Special Requests",
+      },
+      {
+        id: 103,
+        name: "John Smith",
+        date: "2022-01-03",
+        time: "20:00",
+        diners: 6,
+        occasion: "Graduation",
+        table: { id: 3, name: "Main 3", reserved: true },
+        email: "john@smith.com",
+        phone: "04876548732",
+        specialRequests: "No Special Requests",
+      },
+    ];
+
+    const retrievedReservations = getReservationsFromLocalStorage();
+    expect(retrievedReservations).toEqual(defaultReservations);
+  });
+
+  test("saveReservationsToLocalStorage saves reservations correctly", () => {
+    const reservations = [
+      { id: 1, name: "Alice", date: "2023-04-01", time: "18:00" },
+    ];
+
+    saveReservationsToLocalStorage(reservations);
+
+    const retrievedReservations = JSON.parse(
+      localStorage.getItem("reservations")
+    );
+    expect(retrievedReservations).toEqual(reservations);
   });
 });

@@ -1,10 +1,11 @@
 import "./BookingForm.css";
 import TableSelection from "./TableSelection";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ConfirmBooking from "./ConfirmBooking";
 import { useLocation } from "react-router-dom";
 
 const BookingForm = (props) => {
+  const nameRef = useRef();
   const availableTimes = props.availableTimes;
   const updateTimes = props.updateTimes;
   const tables = [
@@ -35,6 +36,7 @@ const BookingForm = (props) => {
   const [disable1, setDisable1] = useState("");
   const [disable2, setDisable2] = useState(" disable");
   const [form, setForm] = useState({
+    id: 0,
     date: new Date().toISOString().split("T")[0],
     time: "",
     diners: "",
@@ -75,6 +77,7 @@ const BookingForm = (props) => {
       );
       props.setReservations(updatedReservations);
     } else {
+      form.id = reservations.length + 101;
       props.setReservations([...props.reservations, form]);
     }
   };
@@ -99,7 +102,7 @@ const BookingForm = (props) => {
       )}
 
       <h1 id="form-title">Reserve a table</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} role="form">
         <section className={"form-page-1" + disable1}>
           <label htmlFor="reservation-date">
             Reservation date:
@@ -229,6 +232,9 @@ const BookingForm = (props) => {
               e.preventDefault();
               setDisable1(" disable");
               setDisable2("");
+              setTimeout(() => {
+                nameRef.current.focus();
+              }, 1);
             }}
           >
             <h4>Next Page</h4>
@@ -246,6 +252,7 @@ const BookingForm = (props) => {
               onChange={(e) => {
                 setForm({ ...form, name: e.target.value });
               }}
+              ref={nameRef}
             />
           </label>
           <label htmlFor="email">

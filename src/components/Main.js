@@ -4,6 +4,7 @@ import BookingPage from "./bookingPage/BookingPage";
 import { useReducer, useState } from "react";
 import { fetchAPI, submitAPI } from "../Api";
 import Reservations from "./reservations/Reservations";
+import { useEffect } from "react";
 
 // Step 1: Update function
 export const updateTimes = (state, action) => {
@@ -11,6 +12,53 @@ export const updateTimes = (state, action) => {
     return fetchAPI(action.date);
   }
   return state;
+};
+
+export const saveReservationsToLocalStorage = (reservations) => {
+  localStorage.setItem("reservations", JSON.stringify(reservations));
+};
+
+export const getReservationsFromLocalStorage = () => {
+  return (
+    JSON.parse(localStorage.getItem("reservations")) || [
+      {
+        id: 101,
+        name: "John Doe",
+        date: "2022-01-01",
+        time: "18:00",
+        diners: 2,
+        occasion: "Birthday",
+        table: { id: 1, name: "Main 1", reserved: true },
+        email: "john@doe.com",
+        phone: "04876548732",
+        specialRequests: "No Special Requests",
+      },
+      {
+        id: 102,
+        name: "Jane Doe",
+        date: "2022-01-02",
+        time: "19:00",
+        diners: 4,
+        occasion: "Anniversary",
+        table: { id: 2, name: "Main 2", reserved: false },
+        email: "jane@doe.com",
+        phone: "04876548778",
+        specialRequests: "No Special Requests",
+      },
+      {
+        id: 103,
+        name: "John Smith",
+        date: "2022-01-03",
+        time: "20:00",
+        diners: 6,
+        occasion: "Graduation",
+        table: { id: 3, name: "Main 3", reserved: true },
+        email: "john@smith.com",
+        phone: "04876548732",
+        specialRequests: "No Special Requests",
+      },
+    ]
+  );
 };
 
 export const initializeTimes = () => {
@@ -24,38 +72,20 @@ export const submitForm = (form) => {
 export default function Main() {
   const initialTimes = initializeTimes();
   const [availableTimes, dispatch] = useReducer(updateTimes, initialTimes);
-  const [reservations, setReservations] = useState([
-    {
-      id: 101,
-      name: "John Doe",
-      date: "2022-01-01",
-      time: "18:00",
-      diners: 2,
-      occasion: "Birthday",
-      table: { id: 1, name: "Main 1", reserved: true },
-      specialRequests: "No Special Requests",
-    },
-    {
-      id: 102,
-      name: "Jane Doe",
-      date: "2022-01-02",
-      time: "19:00",
-      diners: 4,
-      occasion: "Anniversary",
-      table: { id: 2, name: "Main 2", reserved: false },
-      specialRequests: "No Special Requests",
-    },
-    {
-      id: 103,
-      name: "John Smith",
-      date: "2022-01-03",
-      time: "20:00",
-      diners: 6,
-      occasion: "Graduation",
-      table: { id: 3, name: "Main 3", reserved: true },
-      specialRequests: "No Special Requests",
-    },
-  ]);
+  const [reservations, setReservations] = useState(
+    getReservationsFromLocalStorage()
+  );
+
+  useEffect(() => {
+    const localReservations = getReservationsFromLocalStorage();
+    if (localReservations.length > 0) {
+      setReservations(localReservations);
+    }
+  }, []);
+
+  useEffect(() => {
+    saveReservationsToLocalStorage(reservations);
+  }, [reservations]);
 
   const navigate = useNavigate();
 
