@@ -1,6 +1,12 @@
 import { ReactComponent as TableImg } from "../../assets/img/round-table-svgrepo-com.svg";
 
-const TableSelection = ({ tables, selectedTable, setSelectedTable }) => {
+const TableSelection = ({
+  formErrors,
+  setFormErrors,
+  tables,
+  selectedTable,
+  setSelectedTable,
+}) => {
   return (
     <>
       {tables.map((table) => (
@@ -10,6 +16,7 @@ const TableSelection = ({ tables, selectedTable, setSelectedTable }) => {
           onClick={(e) => {
             e.preventDefault();
             setSelectedTable(table);
+            setFormErrors({ ...formErrors, table: e.target.value === 0 });
           }}
           style={{
             color: table.id === selectedTable.id ? "#495E57" : "#EDEFEE",

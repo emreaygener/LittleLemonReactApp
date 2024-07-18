@@ -65,6 +65,20 @@ const BookingForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    formErrorValidate();
+    if (
+      formErrors.date ||
+      formErrors.time ||
+      formErrors.diners ||
+      formErrors.occasion ||
+      formErrors.table ||
+      formErrors.name ||
+      formErrors.email ||
+      formErrors.phone
+    ) {
+      nameRef.current.scrollIntoView();
+      return;
+    }
     setIsModalOpen(true);
   };
   const handleConfirm = () => {
@@ -89,6 +103,47 @@ const BookingForm = (props) => {
     updateTimes(new Date(form.date));
   }, [form.date]);
 
+  const [formErrors, setFormErrors] = useState({
+    date: false,
+    time: false,
+    diners: false,
+    occasion: false,
+    table: false,
+
+    name: false,
+    email: false,
+    phone: false,
+  });
+
+  const formErrorValidate = () => {
+    setFormErrors({
+      date: form.date === "",
+      time: form.time === "",
+      diners: form.diners === "" || form.diners > 12,
+      occasion: form.occasion === "",
+      table: form.table.id === 0,
+
+      name: form.name === "",
+      email:
+        form.email === "" ||
+        !form.email.includes("@") ||
+        !form.email.includes("."),
+      phone: form.phone === "" || form.phone.length < 10,
+    });
+  };
+
+  const formErrorValidateFirstPage = () => {
+    setFormErrors({
+      date: form.date === "",
+      time: form.time === "",
+      diners: form.diners === "" || form.diners > 12,
+      occasion: form.occasion === "",
+      table: form.table.id === 0,
+    });
+  };
+
+  const labelRef = useRef();
+
   return (
     <>
       {isModalOpen && (
@@ -102,9 +157,31 @@ const BookingForm = (props) => {
       )}
 
       <h1 id="form-title">Reserve a table</h1>
-      <form onSubmit={handleSubmit} role="form">
-        <section className={"form-page-1" + disable1}>
-          <label htmlFor="reservation-date">
+      <section className="form" role="form">
+        <form
+          onSubmit={(e) => {
+            if (
+              form.date === "" ||
+              form.time === "" ||
+              form.diners === "" ||
+              form.occasion === "" ||
+              form.table.id === 0
+            ) {
+              formErrorValidateFirstPage();
+              e.preventDefault();
+              labelRef.current.scrollIntoView();
+            } else {
+              e.preventDefault();
+              setDisable1(" disable");
+              setDisable2("");
+              setTimeout(() => {
+                nameRef.current.focus();
+              }, 1);
+            }
+          }}
+          className={"form-page-1" + disable1}
+        >
+          <label htmlFor="reservation-date" ref={labelRef}>
             Reservation date:
             <input
               name="reservation-date"
@@ -114,8 +191,11 @@ const BookingForm = (props) => {
               value={form.date}
               onChange={(e) => {
                 setForm({ ...form, date: e.target.value });
+                setFormErrors({ ...formErrors, date: e.target.value === "" });
               }}
+              required
             />
+            {formErrors.date && <p className="error">Please select a date</p>}
           </label>
           <div className="form-row">
             <label htmlFor="reservation-time">
@@ -126,7 +206,9 @@ const BookingForm = (props) => {
                 value={form.time}
                 onChange={(e) => {
                   setForm({ ...form, time: e.target.value });
+                  setFormErrors({ ...formErrors, time: e.target.value === "" });
                 }}
+                required
               >
                 <option value="">Select a time</option>
                 {availableTimes.map((time) => (
@@ -135,6 +217,7 @@ const BookingForm = (props) => {
                   </option>
                 ))}
               </select>
+              {formErrors.time && <p className="error">Please select a time</p>}
             </label>
             <label htmlFor="number-of-diners">
               Number of diners:
@@ -148,8 +231,18 @@ const BookingForm = (props) => {
                 value={form.diners}
                 onChange={(e) => {
                   setForm({ ...form, diners: e.target.value });
+                  setFormErrors({
+                    ...formErrors,
+                    diners: e.target.value === "" || e.target.value > 12,
+                  });
                 }}
+                required
               />
+              {formErrors.diners && (
+                <p className="error">
+                  Please select the number of diners (max 12)
+                </p>
+              )}
             </label>
           </div>
           <label htmlFor="Occasion">
@@ -160,7 +253,12 @@ const BookingForm = (props) => {
               value={form.occasion}
               onChange={(e) => {
                 setForm({ ...form, occasion: e.target.value });
+                setFormErrors({
+                  ...formErrors,
+                  occasion: e.target.value === "",
+                });
               }}
+              required
             >
               <option value="">Select an occasion</option>
               <option value="Birthday">Birthday</option>
@@ -168,6 +266,9 @@ const BookingForm = (props) => {
               <option value="Wedding">Wedding</option>
               <option value="Other">Other</option>
             </select>
+            {formErrors.occasion && (
+              <p className="error">Please select an occasion</p>
+            )}
           </label>
           <div className="map-legend">
             <div className="map-legend col">
@@ -189,6 +290,8 @@ const BookingForm = (props) => {
           </label>
           <section className="tables">
             <TableSelection
+              formErrors={formErrors}
+              setFormErrors={setFormErrors}
               tables={tables[0]}
               selectedTable={selectedTable}
               setSelectedTable={setSelectedTable}
@@ -199,6 +302,8 @@ const BookingForm = (props) => {
           </label>
           <section className="tables">
             <TableSelection
+              formErrors={formErrors}
+              setFormErrors={setFormErrors}
               tables={tables[1]}
               selectedTable={selectedTable}
               setSelectedTable={setSelectedTable}
@@ -209,40 +314,32 @@ const BookingForm = (props) => {
           </label>
           <section className="tables">
             <TableSelection
+              formErrors={formErrors}
+              setFormErrors={setFormErrors}
               tables={tables[2]}
               selectedTable={selectedTable}
               setSelectedTable={setSelectedTable}
             />
           </section>
+          {formErrors.table && <p className="error">Please select a table</p>}
 
           <button
             className="nav"
-            type="nav"
+            type="submit"
             disabled={
-              form.table.id === 0 ||
-              form.Date === "" ||
+              form.date === "" ||
               form.time === "" ||
               form.diners === "" ||
               form.occasion === "" ||
-              form.diners > 12
-                ? true
-                : false
+              form.table.id === 0
             }
-            onClick={(e) => {
-              e.preventDefault();
-              setDisable1(" disable");
-              setDisable2("");
-              setTimeout(() => {
-                nameRef.current.focus();
-              }, 1);
-            }}
           >
             <h4>Next Page</h4>
           </button>
-        </section>
+        </form>
 
-        <section className={"form-page-2" + disable2}>
-          <label htmlFor="name">
+        <form onSubmit={handleSubmit} className={"form-page-2" + disable2}>
+          <label htmlFor="name" ref={nameRef}>
             Name:
             <input
               name="name"
@@ -251,9 +348,11 @@ const BookingForm = (props) => {
               value={form.name}
               onChange={(e) => {
                 setForm({ ...form, name: e.target.value });
+                setFormErrors({ ...formErrors, name: e.target.value === "" });
               }}
-              ref={nameRef}
+              required
             />
+            {formErrors.name && <p className="error">Please enter your name</p>}
           </label>
           <label htmlFor="email">
             {"Email (required):"}
@@ -264,9 +363,19 @@ const BookingForm = (props) => {
               value={form.email}
               onChange={(e) => {
                 setForm({ ...form, email: e.target.value });
+                setFormErrors({
+                  ...formErrors,
+                  email:
+                    e.target.value === "" ||
+                    !e.target.value.includes("@") ||
+                    !e.target.value.includes("."),
+                });
               }}
               required
             />
+            {formErrors.email && (
+              <p className="error">Please enter a valid email</p>
+            )}
           </label>
           <label htmlFor="phone">
             Phone:
@@ -277,9 +386,17 @@ const BookingForm = (props) => {
               value={form.phone}
               onChange={(e) => {
                 setForm({ ...form, phone: e.target.value });
+                setFormErrors({
+                  ...formErrors,
+                  phone: e.target.value === "" || e.target.value.length < 10,
+                });
               }}
+              required
             />
           </label>
+          {formErrors.phone && (
+            <p className="error">Please enter a valid phone number</p>
+          )}
           <label htmlFor="special-requests">
             Special requests:
             <textarea
@@ -306,8 +423,8 @@ const BookingForm = (props) => {
           <button type="submit">
             <h4>Submit</h4>
           </button>
-        </section>
-      </form>
+        </form>
+      </section>
     </>
   );
 };

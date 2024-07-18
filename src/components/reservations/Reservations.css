@@ -83,3 +83,48 @@
     flex-direction: column;
   }
 }
+
+#reserve-button-reservations-page {
+  display: flex;
+  background-color: #f4ce14;
+  overflow: hidden;
+  color: #f4ce14;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  justify-content: center;
+  justify-self: center;
+  justify-items: center;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  list-style: none;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#reserve-button-reservations-page:active {
+  transform: scale(0.95);
+}
+
+#reserve-button-reservations-page h4 {
+  color: #333333;
+  background-color: #f4ce14;
+  justify-content: center;
+  align-content: center;
+  justify-self: center;
+  align-self: center;
+  justify-items: center;
+  align-items: center;
+}
+
+#reserve-button-reservations-page:hover {
+  background-color: #495e57;
+  & h4 {
+    color: #edefee;
+    background-color: #495e57;
+  }
+}
