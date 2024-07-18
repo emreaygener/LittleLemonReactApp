@@ -195,9 +195,13 @@ const BookingForm = (props) => {
               }}
               required
             />
-            {formErrors.date && <p className="error">Please select a date</p>}
+            {formErrors.date && (
+              <p role="alert" className="error">
+                Please select a date
+              </p>
+            )}
           </label>
-          <div className="form-row">
+          <div className="form-row" role="row">
             <label htmlFor="reservation-time">
               Reservation time:
               <select
@@ -217,7 +221,11 @@ const BookingForm = (props) => {
                   </option>
                 ))}
               </select>
-              {formErrors.time && <p className="error">Please select a time</p>}
+              {formErrors.time && (
+                <p role="alert" className="error">
+                  Please select a time
+                </p>
+              )}
             </label>
             <label htmlFor="number-of-diners">
               Number of diners:
@@ -239,7 +247,7 @@ const BookingForm = (props) => {
                 required
               />
               {formErrors.diners && (
-                <p className="error">
+                <p role="alert" className="error">
                   Please select the number of diners (max 12)
                 </p>
               )}
@@ -267,10 +275,12 @@ const BookingForm = (props) => {
               <option value="Other">Other</option>
             </select>
             {formErrors.occasion && (
-              <p className="error">Please select an occasion</p>
+              <p role="alert" className="error">
+                Please select an occasion
+              </p>
             )}
           </label>
-          <div className="map-legend">
+          <div className="map-legend" role="definition">
             <div className="map-legend col">
               <div className="secondary-2 box-small"></div>
               <p>Reserved</p>
@@ -288,7 +298,12 @@ const BookingForm = (props) => {
           <label className="table-label" htmlFor="porch">
             <p>Porch</p>
           </label>
-          <section className="tables">
+          <section
+            className="tables"
+            name="porch"
+            aria-label="table-selection"
+            id="porch"
+          >
             <TableSelection
               formErrors={formErrors}
               setFormErrors={setFormErrors}
@@ -300,7 +315,12 @@ const BookingForm = (props) => {
           <label className="table-label" htmlFor="inside">
             <p>Main Hall</p>
           </label>
-          <section className="tables">
+          <section
+            className="tables"
+            aria-label="table-selection"
+            name="inside"
+            id="inside"
+          >
             <TableSelection
               formErrors={formErrors}
               setFormErrors={setFormErrors}
@@ -312,7 +332,12 @@ const BookingForm = (props) => {
           <label className="table-label" htmlFor="garden">
             <p>Garden</p>
           </label>
-          <section className="tables">
+          <section
+            className="tables"
+            aria-label="table-selection"
+            name="garden"
+            id="garden"
+          >
             <TableSelection
               formErrors={formErrors}
               setFormErrors={setFormErrors}
@@ -321,7 +346,11 @@ const BookingForm = (props) => {
               setSelectedTable={setSelectedTable}
             />
           </section>
-          {formErrors.table && <p className="error">Please select a table</p>}
+          {formErrors.table && (
+            <p role="alert" className="error">
+              Please select a table
+            </p>
+          )}
 
           <button
             className="nav"
@@ -351,11 +380,16 @@ const BookingForm = (props) => {
                 setFormErrors({ ...formErrors, name: e.target.value === "" });
               }}
               required
+              minLength={2}
             />
-            {formErrors.name && <p className="error">Please enter your name</p>}
+            {formErrors.name && (
+              <p role="alert" className="error">
+                Please enter your name
+              </p>
+            )}
           </label>
           <label htmlFor="email">
-            {"Email (required):"}
+            {"Email:"}
             <input
               name="email"
               id="email"
@@ -374,7 +408,9 @@ const BookingForm = (props) => {
               required
             />
             {formErrors.email && (
-              <p className="error">Please enter a valid email</p>
+              <p role="alert" className="error">
+                Please enter a valid email
+              </p>
             )}
           </label>
           <label htmlFor="phone">
@@ -391,11 +427,15 @@ const BookingForm = (props) => {
                   phone: e.target.value === "" || e.target.value.length < 10,
                 });
               }}
+              minLength={10}
+              maxLength={16}
               required
             />
           </label>
           {formErrors.phone && (
-            <p className="error">Please enter a valid phone number</p>
+            <p role="alert" className="error">
+              Please enter a valid phone number
+            </p>
           )}
           <label htmlFor="special-requests">
             Special requests:

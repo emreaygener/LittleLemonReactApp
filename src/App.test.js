@@ -181,3 +181,213 @@ describe("Local Storage Reservations", () => {
     expect(retrievedReservations).toEqual(reservations);
   });
 });
+
+describe("Form Validation", () => {
+  test("Correct html validation applied to form fields", async () => {
+    render(
+      <MemoryRouter>
+        <BookingForm
+          availableTimes={["17:00", "18:00", "19:00"]}
+          updateTimes={() => {}}
+        />
+      </MemoryRouter>
+    );
+
+    const dateInput = screen.getByLabelText("Reservation date:");
+    expect(dateInput).toHaveAttribute("required");
+    expect(dateInput).toHaveAttribute(
+      "min",
+      new Date().toISOString().split("T")[0]
+    );
+
+    const timeInput = screen.getByLabelText("Reservation time:");
+    expect(timeInput).toHaveAttribute("required");
+
+    const dinersInput = screen.getByLabelText("Number of diners:");
+    expect(dinersInput).toHaveAttribute("required");
+    expect(dinersInput).toHaveAttribute("min", "1");
+    expect(dinersInput).toHaveAttribute("max", "12");
+
+    const occasionInput = screen.getByLabelText("Occasion:");
+    expect(occasionInput).toHaveAttribute("required");
+
+    const nameInput = screen.getByLabelText("Name:");
+    expect(nameInput).toHaveAttribute("required");
+    expect(nameInput).toHaveAttribute("minlength", "2");
+
+    const emailInput = screen.getByLabelText("Email:");
+    expect(emailInput).toHaveAttribute("required");
+    expect(emailInput).toHaveAttribute("type", "email");
+
+    const phoneInput = screen.getByLabelText("Phone:");
+    expect(phoneInput).toHaveAttribute("required");
+    expect(phoneInput).toHaveAttribute("minlength", "10");
+    expect(phoneInput).toHaveAttribute("maxlength", "16");
+    expect(phoneInput).toHaveAttribute("type", "tel");
+
+    const specialRequestsInput = screen.getByLabelText("Special requests:");
+    expect(specialRequestsInput).not.toHaveAttribute("required");
+  });
+
+  test("Form validation error messages appear when form is submitted with invalid data", async () => {
+    render(
+      <MemoryRouter>
+        <BookingForm
+          availableTimes={["17:00", "18:00", "19:00"]}
+          updateTimes={() => {}}
+        />
+      </MemoryRouter>
+    );
+
+    const form = screen.getByRole("form");
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    fireEvent.click(submitButton);
+
+    const errorMessages = await screen.findAllByRole("alert");
+    expect(errorMessages).toHaveLength(7);
+  });
+
+  test("Form validation error messages disappear when form is submitted with valid data", async () => {
+    render(
+      <MemoryRouter>
+        <BookingForm
+          availableTimes={["17:00", "18:00", "19:00"]}
+          updateTimes={() => {}}
+        />
+      </MemoryRouter>
+    );
+
+    await userEvent.type(
+      screen.getByLabelText("Reservation date:"),
+      "2025-04-01"
+    );
+
+    const tableToSelect = await screen.getByText("Porch 1");
+    await userEvent.click(tableToSelect);
+
+    userEvent.selectOptions(screen.getByLabelText("Reservation time:"), [
+      "18:00",
+    ]);
+
+    await userEvent.type(screen.getByLabelText("Number of diners:"), "4");
+    await userEvent.selectOptions(screen.getByLabelText("Occasion:"), [
+      "Birthday",
+    ]);
+    await userEvent.type(screen.getByLabelText("Name:"), "Alice");
+    await userEvent.type(screen.getByLabelText("Email:"), "alice@smith.com");
+    await userEvent.type(screen.getByLabelText("Phone:"), "04876548732");
+
+    const form = screen.getByRole("form");
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    fireEvent.click(submitButton);
+
+    const errorMessages = await screen.queryAllByRole("alert");
+    expect(errorMessages).toHaveLength(1);
+  });
+
+  test("Removes error message after selecting a table", () => {
+    const initialProps = {
+      formErrors: { table: true },
+      availableTimes: ["17:00", "18:00", "19:00"],
+      updateTimes: jest.fn(),
+
+      tables: [{ id: 7, name: "Porch 1", reserved: false }],
+      selectedTable: null,
+      setSelectedTable: jest.fn(),
+      setFormErrors: jest.fn(),
+    };
+
+    render(
+      <MemoryRouter>
+        <BookingForm {...initialProps} />
+      </MemoryRouter>
+    );
+
+    const tableButton = screen.getByRole("table-button", { name: "Porch 1" });
+    fireEvent.click(tableButton);
+
+    const errorMessage = screen.queryByText("Please select a table");
+    expect(errorMessage).toBeNull();
+  });
+});
+
+describe("formErrorValidate", () => {
+  it("should validate form fields and set errors correctly", () => {
+    const setFormErrors = jest.fn();
+
+    const forms = [
+      {
+        // All fields are valid
+        form: {
+          date: "2023-04-01",
+          time: "12:00",
+          diners: 5,
+          occasion: "Birthday",
+          table: { id: 1 },
+          name: "John Doe",
+          email: "john.doe@example.com",
+          phone: "1234567890",
+        },
+        expected: {
+          date: false,
+          time: false,
+          diners: false,
+          occasion: false,
+          table: false,
+          name: false,
+          email: false,
+          phone: false,
+        },
+      },
+      {
+        // All fields are invalid
+        form: {
+          date: "",
+          time: "",
+          diners: 13,
+          occasion: "",
+          table: { id: 0 },
+          name: "",
+          email: "invalidemail",
+          phone: "123",
+        },
+        expected: {
+          date: true,
+          time: true,
+          diners: true,
+          occasion: true,
+          table: true,
+          name: true,
+          email: true,
+          phone: true,
+        },
+      },
+    ];
+
+    forms.forEach(({ form, expected }) => {
+      setFormErrors.mockClear();
+
+      const formErrorValidate = () => {
+        setFormErrors({
+          date: form.date === "",
+          time: form.time === "",
+          diners: form.diners === "" || form.diners > 12,
+          occasion: form.occasion === "",
+          table: form.table.id === 0,
+
+          name: form.name === "",
+          email:
+            form.email === "" ||
+            !form.email.includes("@") ||
+            !form.email.includes("."),
+          phone: form.phone === "" || form.phone.length < 10,
+        });
+      };
+      formErrorValidate(form, setFormErrors);
+
+      expect(setFormErrors).toHaveBeenCalledWith(expected);
+    });
+  });
+});

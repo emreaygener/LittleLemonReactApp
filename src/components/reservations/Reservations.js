@@ -12,6 +12,7 @@ const Reservations = (props) => {
     <>
       <h1 id="reservation-header">Reservations</h1>
       <Link
+        role="button"
         id="reserve-button-reservations-page"
         to="/booking"
         className="reserve-button"

@@ -5,7 +5,7 @@ import "./CallToAction.css";
 export default function CallToAction() {
   return (
     <section id="CallToAction">
-      <div id="text-container">
+      <article id="text-container">
         {/* <img
           id="hero-img-small"
           className="img-small-visible"
@@ -20,10 +20,10 @@ export default function CallToAction() {
           We are a family owned Mediterranean restaurant, focused on traditional
           recipes served with a modern twist.
         </p>
-        <Link to="/booking" className="reserve-button">
+        <Link aria-label="button" to="/booking" className="reserve-button">
           <h4>Reserve a table</h4>
         </Link>
-      </div>
+      </article>
       <img
         id="hero-img"
         className="img-big-visible"

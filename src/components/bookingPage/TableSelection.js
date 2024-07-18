@@ -11,7 +11,9 @@ const TableSelection = ({
     <>
       {tables.map((table) => (
         <button
+          role="table-button"
           className="table-button"
+          aria-label={table.name}
           key={table.id}
           onClick={(e) => {
             e.preventDefault();
