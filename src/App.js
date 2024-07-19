@@ -6,9 +6,6 @@ import Main from "./components/Main";
 function App() {
   return (
     <>
-      {
-        //Page 2 of the booking form is not accessible enough and cant be accessed with the keyboard
-      }
       <Header />
       <Main />
       <Footer />

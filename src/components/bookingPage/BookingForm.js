@@ -146,16 +146,6 @@ const BookingForm = (props) => {
 
   return (
     <>
-      {isModalOpen && (
-        <ConfirmBooking
-          form={form}
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
-          isConfirmed={isConfirmed}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
-
       <h1 id="form-title">Reserve a table</h1>
       <section className="form" role="form">
         <form
@@ -465,6 +455,15 @@ const BookingForm = (props) => {
           </button>
         </form>
       </section>
+      {isModalOpen && (
+        <ConfirmBooking
+          form={form}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          isConfirmed={isConfirmed}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </>
   );
 };
