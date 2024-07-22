@@ -1,70 +1,91 @@
-# Getting Started with Create React App
+# Little Lemon Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+Welcome to Little Lemon, a React-based web application developed as a capstone project for the Front-End Developer Certificate program. This project showcases the culmination of various skills and technologies learned throughout the program, focusing on building a functional and user-friendly restaurant booking system.
 
-In the project directory, you can run:
+## Project Description
 
-### `npm start`
+Little Lemon is a web application designed for a fictional restaurant, providing a seamless and interactive user experience for booking tables. The app consists of three main components: a Home page, a Booking form, and a Reservations page. Each component is crafted with careful attention to UX/UI design principles, ensuring an intuitive and visually appealing interface.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Home Page: A welcoming interface introducing users to Little Lemon, complete with essential information about the restaurant.
+- Booking Form: A user-friendly form allowing customers to book tables at the restaurant. The form includes client-side validation to ensure accurate data entry and prevent double bookings.
+- Reservations Page: A dedicated page displaying existing reservations, providing users with a clear view of their bookings.
+- Form Validations: Implemented to enhance data accuracy and user experience by preventing erroneous inputs.
+- Unit Testing: Ensuring the app's reliability and functionality through rigorous unit tests.
+- Responsive Design: Designed with a mobile-first approach, ensuring optimal performance across various devices and screen sizes.
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React: For building the dynamic user interface.
+- Figma: For designing the UI/UX components and creating wireframes.
+- CSS Grid: For creating a flexible and responsive layout.
+- Semantic HTML: For structuring the app's content meaningfully.
+- Git & GitHub: For version control and project management.
+- API Integration: For handling booking data and ensuring persistent information.
+- Unit Testing: For maintaining code quality and functionality.
 
-### `npm run build`
+## Development Process
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Setup and Planning: Setting up the development environment, tracking the project with Git, and designing the UI in Figma.
+- HTML & CSS: Establishing the app's HTML structure and styling using reusable CSS components.
+- Component Development: Building React components for the home page, booking form, and reservations page.
+- Functionality Implementation: Coding the booking system, managing state, and integrating APIs for data handling.
+- Testing and Refinement: Adding unit tests, refining the UI/UX based on feedback, and ensuring accessibility.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Conclusion
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Little Lemon is a testament to the practical application of front-end development skills acquired during the certificate program. It serves as a job-ready portfolio piece, demonstrating proficiency in React, UX/UI design, and web development best practices. This project not only highlights technical abilities but also reflects a commitment to delivering high-quality and user-centric web applications.
 
-### `npm run eject`
+## Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Before running the Little Lemon web app, make sure you have the following installed on your machine:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Node.js
+- npm (Node Package Manager)
+- Git
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To run the Little Lemon web app, follow these steps:
 
-## Learn More
+1. Open your terminal or command prompt.
+2. Navigate to the directory where you want to clone the project.
+3. Run the following command to clone the project from your GitHub account:
+   ```
+   git clone https://github.com/emreaygener/LittleLemonReactApp.git
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Running the App
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once the project is cloned, navigate to the project directory in your terminal or command prompt. Then, follow these steps:
 
-### Code Splitting
+1. Install the project dependencies by running the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```
+   npm install
+   ```
 
-### Analyzing the Bundle Size
+2. Start the development server by running the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   ```
+   npm start
+   ```
 
-### Making a Progressive Web App
+3. Open your web browser and visit `http://localhost:3000` to view the Little Lemon web app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
 
-### Advanced Configuration
+If you would like to contribute to the Little Lemon web app, please follow these guidelines:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Fork the project repository on GitHub.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them to your branch.
+4. Push your branch to your forked repository.
+5. Open a pull request to the original repository.
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the Mozilla Public License Version 2.0. See the [LICENSE](LICENSE) file for more information.
