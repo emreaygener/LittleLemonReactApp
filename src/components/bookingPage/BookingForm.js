@@ -147,6 +147,21 @@ const BookingForm = (props) => {
   return (
     <>
       <h1 id="form-title">Reserve a table</h1>
+      <h3
+        style={{
+          width: "75%",
+          margin: "auto auto",
+          textAlign: "center",
+          padding: "20px",
+          color: "#333333",
+        }}
+      >
+        This reservation form consists of two pages. Theese two pages include
+        your reservation details and your contact information. Please fill in
+        the form to make a reservation. Feel free to contact us if you have any
+        questions. You can edit your reservation details later on by clicking on
+        the edit button on the reservation card on reservations page.
+      </h3>
       <section className="form" role="form">
         <form
           onSubmit={(e) => {

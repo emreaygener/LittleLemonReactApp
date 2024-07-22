@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./ConfirmBooking.css";
+import { useLoading } from "../../context/loadingContext";
 
 const ConfirmBooking = (props) => {
+  const { toggleLoading } = useLoading();
   const navigate = useNavigate();
   const handleClose = () => {
+    toggleLoading();
+    setTimeout(() => {
+      toggleLoading();
+    }, 2000);
     props.setIsModalOpen(false);
     navigate("/reservations");
   };

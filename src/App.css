@@ -242,3 +242,29 @@ menu.footer h3 {
     gap: 20px;
   }
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80vh;
+  color: #495e57;
+}
+.loader {
+  border: 10px solid #edefee;
+  border-top: 10px solid #f4ce14;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

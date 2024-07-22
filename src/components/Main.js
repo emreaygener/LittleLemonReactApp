@@ -5,6 +5,7 @@ import { useReducer, useState } from "react";
 import { fetchAPI, submitAPI } from "../Api";
 import Reservations from "./reservations/Reservations";
 import { useEffect } from "react";
+import { useLoading } from "../context/loadingContext";
 
 // Step 1: Update function
 export const updateTimes = (state, action) => {
@@ -70,6 +71,7 @@ export const submitForm = (form) => {
 };
 
 export default function Main() {
+  const { toggleLoading } = useLoading();
   const initialTimes = initializeTimes();
   const [availableTimes, dispatch] = useReducer(updateTimes, initialTimes);
   const [reservations, setReservations] = useState(
