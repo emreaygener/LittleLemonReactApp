@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/LittleLemonReactApp/static/css/main.17e62e9f.css",
+    "main.js": "/LittleLemonReactApp/static/js/main.9819589b.js",
+    "static/js/453.9e1027c6.chunk.js": "/LittleLemonReactApp/static/js/453.9e1027c6.chunk.js",
+    "static/media/Mario and Adrian A.jpg": "/LittleLemonReactApp/static/media/Mario and Adrian A.7f44c6d6e341a27d14b3.jpg",
+    "static/media/Mario and Adrian b.jpg": "/LittleLemonReactApp/static/media/Mario and Adrian b.6ba0e06bfa9c1ea75109.jpg",
+    "static/media/bruchetta.svg": "/LittleLemonReactApp/static/media/bruchetta.29ea078fea3d3120ed22402e901b5bbc.svg",
+    "static/media/greek salad.jpg": "/LittleLemonReactApp/static/media/greek salad.bed423a1fab5b210e347.jpg",
+    "static/media/restauranfood.jpg": "/LittleLemonReactApp/static/media/restauranfood.e8abf5b772b6817189aa.jpg",
+    "static/media/ted.jpg": "/LittleLemonReactApp/static/media/ted.79f59daf7d0393f9641a.jpg",
+    "static/media/footerlogo.png": "/LittleLemonReactApp/static/media/footerlogo.2c859235d6c57bb54176.png",
+    "static/media/emma.jpg": "/LittleLemonReactApp/static/media/emma.fe4e784759275939cdee.jpg",
+    "static/media/logo.png": "/LittleLemonReactApp/static/media/logo.d4cae6fac8384c2dae04.png",
+    "static/media/tilly.png": "/LittleLemonReactApp/static/media/tilly.7474b71ab6b9e8e746d5.png",
+    "static/media/quotes-svgrepo-com (1).png": "/LittleLemonReactApp/static/media/quotes-svgrepo-com (1).a8ad0348656af0b61e59.png",
+    "static/media/round-table-svgrepo-com.svg": "/LittleLemonReactApp/static/media/round-table-svgrepo-com.b00992eff0d2fd1154da6529e41f7ef6.svg",
+    "index.html": "/LittleLemonReactApp/index.html",
+    "static/media/bike.svg": "/LittleLemonReactApp/static/media/bike.e55120b0a8d64267a702bfcff66dea26.svg",
+    "main.17e62e9f.css.map": "/LittleLemonReactApp/static/css/main.17e62e9f.css.map",
+    "main.9819589b.js.map": "/LittleLemonReactApp/static/js/main.9819589b.js.map",
+    "453.9e1027c6.chunk.js.map": "/LittleLemonReactApp/static/js/453.9e1027c6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.17e62e9f.css",
+    "static/js/main.9819589b.js"
+  ]
+}
