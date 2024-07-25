@@ -139,6 +139,8 @@ export default function Main() {
             />
           }
         />
+
+        <Route path="*" element={<Homepage />} />
       </Routes>
     </main>
   );
